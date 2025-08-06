@@ -27,10 +27,27 @@
   box-sizing: border-box;
 }
 
+/* Header */
 header {
   background-color: var(--amarelo);
   padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Produtos */
+.produto__img {
+  max-width: 216px;
+  max-height: 216px;
+}
+
+.produto__preco-riscado {
+  text-decoration: line-through;
+  color: #0000008c;
+}
+
+.produto__preco {
+  font-size: 24px;
+  font-weight: 600;
 }

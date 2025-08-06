@@ -95,18 +95,16 @@ git remote add origin https://github.com/dvs78/TaskList.git
 git branch -M main
 git push -u origin main
 
-1. Avisos de "LF will be replaced by CRLF"
-Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Você pode:
-Eles não impedem o funcionamento nem o commit dos arquivos.
+Avisos de "LF will be replaced by CRLF"
+Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Eles não impedem o funcionamento nem o commit dos arquivos.
 
 Digite no terminal:
 git config --global core.autocrlf true
 Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
 
 
-
 -----------------------------------------------------------------------------------------
-3. CRIAR O COMPONENTE Header.jsx
+4. CRIAR O COMPONENTE Header.jsx
 Criar a pasta components dentro de src
 Criar Header.jsx dentro da pasta components
 Chamar o componente em App.jsx
