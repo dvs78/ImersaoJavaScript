@@ -1,0 +1,120 @@
+FAZER O RESET
+Criar o border-box no css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+1. INSTALAR O VITE
+Digitar no terminal, pasta front-end:
+npm create vite@latest .
+Foi criado vários arquivos, assim como package.json
+
+Para instalar as dependências que estão no package.json
+Digitar no terminal, pasta front-end:
+npm install
+Será criado a pasta node_modules
+
+Para rodar o script que está no package.json
+Digitar no terminal, pasta front-end:
+npm run dev
+
+Deletar o README.md
+Deixar o arquivo App.jsx assim:
+import "./App.css";
+
+// Componentes = funções
+function App() {
+  return <></>;
+}
+export default App;
+
+Deletar reac.svg, está em src/assets
+Retirar do index.html => <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+Alterar o title
+
+Deletar a pasta public
+
+Criar o style.css na mesma pasta do main.jsx
+Colar bem no início do css:
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+
+Em main.jsx, importar o style.css do projeto
+import "./style.css";
+
+Deletar o index.css
+Deletar o App.css e retitar do App.jsx
+
+
+-------------------------------------------------------------------------------------------
+2 PASSO - INSTALAR CÓDIGO DO FONT AWESOME React
+Ir no site, clicar em docs => view the docs => Integrations => React => Set Up with React
+
+Rolar para baixo até Add SVG Core e pegar o código e rodar no terminal
+npm i --save @fortawesome/fontawesome-svg-core
+
+Rolar mais para baixo até Add Icons Packages e pegar o código em Free SVG Icon Package e rodar no terminal tudo de uma vez só
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+Rolar mais para baixo até Add React Component e pegar o código e rodar no terminal
+npm i --save @fortawesome/react-fontawesome@latest
+
+Colocar no arquivo onde for utilizar o ícone
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+E para instalar o ícnone precisa importar - React / Individual import
+<FontAwesomeIcon icon={faCirclePlay} />
+
+
+-----------------------------------------------------------------------------------------
+3 PASSO - SUBIR PROJETO PARA O GITHUB
+Antes, no arquivo .gitignore, deve ficar assim:
+node_modules
+.env
+
+Abrir o github:
+Ir em new
+Colocar o nome do repositório, ex: TaskList
+Deixar em público
+Clicar em criar repositório
+
+Agora é ir para o VS Code 
+Abrir na pasta global
+Digite no terminal:
+git init, vai deixar os arquivos U
+git add .
+git commit -m "Fazendo o 1 commit"
+Em or push an existing repository from the comnad line
+Copiar todos os códigos e rodar no terminal:
+Ex:
+git remote add origin https://github.com/dvs78/TaskList.git
+git branch -M main
+git push -u origin main
+
+1. Avisos de "LF will be replaced by CRLF"
+Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Você pode:
+Eles não impedem o funcionamento nem o commit dos arquivos.
+
+Digite no terminal:
+git config --global core.autocrlf true
+Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
+
+
+
+-----------------------------------------------------------------------------------------
+3. CRIAR O COMPONENTE Header.jsx
+Criar a pasta components dentro de src
+Criar Header.jsx dentro da pasta components
+Chamar o componente em App.jsx
+import Header from "./components/Header";
+// Componentes = funções
+function App() {
+  console.log("Estou no 1 componente");
+  return <Header />;
+}
+
+export default App;

@@ -1,0 +1,1538 @@
+--------------------------------------------------------------------------------------------
+1 PASSO - INSTALAR O VITE
+Abrir o VS Code dentro da pasta
+Digitar no terminal: npm create vite@latest .
+O espaço e ponto e para inidicar a criação do vite justamente na pasta em questão
+React
+JavaScript
+
+Digitar no terminal:
+npm i
+É a mesma coisa de npm install, é abreviação, mas e para inidicar a criação dos pacotes (bibliotecas ou módulos) do node na pasta em questão, vai criar o arquivo node_modules
+Toda vez que digitar npm run dev, vai rodar o vite, é só olhar na pasta package.json em scripts
+Quando digitar npm run build, vai rodar o vite build, é só olhar na pasta package.json em scripts
+
+Digitar no terminal:
+npm run dev
+
+Excluir a pasta public
+Na pasta .gitignore deixar somente = node_modules
+Na pasta assets
+Excluir App.css
+No arquivo App.jsx deixar assim:
+
+function App() {
+  return <></>;
+}
+export default App;
+
+No arquivo index.css, ecluir todo conteúdo
+No arquivo main.jsx, não precisa alterar
+Excluir o arquivo README.md
+
+Colar bem no início do css:
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+
+
+--------------------------------------------------------------------------------------------
+2 PASSO - INSTALAR CÓDIGO DO FONT AWESOME React
+Ir no site, clicar em docs => view the docs => Integrations => React => Set Up with React
+
+Rolar para baixo até Add SVG Core e pegar o código e rodar no terminal
+npm i --save @fortawesome/fontawesome-svg-core
+
+Rolar mais para baixo até Add Icons Packages e pegar o código em Free SVG Icon Package e rodar no terminal tudo de uma vez só
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
+
+Rolar mais para baixo até Add React Component e pegar o código e rodar no terminal
+npm i --save @fortawesome/react-fontawesome@latest
+
+Colocar no arquivo onde for utilizar o ícone
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+E para instalar o ícnone precisa importar - React / Individual import
+<FontAwesomeIcon icon={faCirclePlay} />
+
+
+--------------------------------------------------------------------------------------------
+3 PASSO - SUBIR PROJETO PARA O GITHUB
+Antes, no arquivo .gitignore, deve ficar assim:
+node_modules
+.env
+
+Abrir o github:
+Ir em new
+Colocar o nome do repositório, ex: TaskList
+Deixar em público
+Clicar em criar repositório
+
+Agora é ir para o VS Code 
+Abrir na pasta global
+Digite no terminal:
+git init, vai deixar os arquivos U
+git add .
+git commit -m "Fazendo o 1 commit"
+Em or push an existing repository from the comnad line
+Copiar todos os códigos e rodar no terminal:
+Ex:
+git remote add origin https://github.com/dvs78/TaskList.git
+git branch -M main
+git push -u origin main
+
+1. Avisos de "LF will be replaced by CRLF"
+Isso é apenas um aviso de que as quebras de linha no seu projeto (LF — estilo Unix) estão sendo convertidas para o estilo do Windows (CRLF). Você pode:
+Eles não impedem o funcionamento nem o commit dos arquivos.
+
+Digite no terminal:
+git config --global core.autocrlf true
+Esse comando faz o Git converter LF para CRLF no checkout e reverter para LF no commit.
+
+
+--------------------------------------------------------------------------------------------
+4 PASSO - CRIAR A PÁGINA LOGIN e HOME 
+Trazer essa páginas para App.jsx
+
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+function App() {
+  return (
+    <div>
+      <Login />
+      <Home />
+    </div>
+  );
+}
+
+export default App;
+
+
+--------------------------------------------------------------------------------------------
+5 PASSO - COLOCAR AS MENSAGENS DE ERRO
+Digite na pasta global:
+npm install react-toastify
+npm run dev
+
+No arquivo App.jsx colocar
+import Toast from "./components/Toast";
+
+function App() {
+  return (
+    <>
+      {/* ... suas rotas ou layout */}
+      <Toast />
+    </>
+  );
+}
+
+Colar o arquivo Toast.jsx na pasta components
+Copiar o css do Toast
+
+
+--------------------------------------------------------------------------------------------
+6 PASSO - CONSTRUIR A API - APPLICATION PROGRAMING INTERFACE (Interface de programação de aplicações)
+Sistema utilizado para comunicação de 2 entidades, ou seja, 2 computadores
+Criar uma pasta fron_end e colar todos os arquivos criados até agora
+Criar a pasta back_end para montar a API
+!!!!!!!!!!!!!Importante, toda pasta deve ser escrita em minúscula
+Ir para back_end no terminal
+Criar um package.json, digitar o código abaixo. O -y é só para trazer todas as configurações padrão desse projeto aquivos
+npm init -y
+
+Colocar no package.json, depois de description "type": "module",
+
+Ainda na pasta back_end
+Instalar express e pgadmin
+npm install express pg
+
+express: framework para criar a API HTTP.
+pg: cliente PostgreSQL para Node.js.
+
+Em back_end criar a pasta api_back e dentro dela o arquivo server.js
+
+
+--------------------------------------------------------------------------------------------
+7 PASSO - INSTALAR NODEMON
+Sempre que alterar o código, tem que matar o servidor e reiniciar novamente
+nodemon é mais robusto que watch
+Digite no terminal, rodar no back_end
+npm install --save-dev nodemon
+
+"scripts": {
+    "start": "nodemon ./api_back/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+
+--------------------------------------------------------------------------------------------
+8 PASSO - CONTINUAÇÃO DA API
+NO arquivo server.js, deixar assim:
+
+import express from "express";
+
+const app = express();
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+Vai aparecer no terminal:
+Servidor está escutando na porta 3000
+
+Digite no terminal, rodar no back_end
+node .\api_back\server.js
+
+Alguns treinos na web, deixe o código assim:
+
+import express from "express";
+
+const app = express();
+
+const PORT = 3000;
+
+app.get("/", async (req, res) => {
+  res.send("Por enquanto só estou com construindo endpoint '/clientes'");
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+
+abrir o google e rodar localhost:3000
+
+Se der problema no git, rodar na pasta global:
+Remove-Item -Recurse -Force front_end\.git
+git add front_end/*
+git add front_end/**/*
+git commit -m "Adiciona arquivos do front_end após remoção do submódulo"
+git push
+
+git rm --cached front_end
+Remove-Item -Recurse -Force .git/modules/front_end -ErrorAction SilentlyContinue
+Get-ChildItem front_end
+git add front_end
+git commit -m "Remove referência de submódulo e adiciona front_end como pasta normal"
+git push
+
+Montar um .gitiginore na raiz
+# Node
+**/node_modules/
+**/.env
+
+# Logs e temporários
+*.log
+.DS_Store
+
+# Vite build
+front_end/dist/
+
+E rodar na pasta global para remover os outros .gitignore
+del front_end\.gitignore
+del back_end\.gitignore
+
+
+--------------------------------------------------------------------------------------------
+9 PASSO - CRIAR A PASTA API NO FRONT-ENDPOINT
+// API significa Application Programing interface
+// POST, GET, PUT, DELETE
+// CRUD - CREATE, READ, UPDATE e DELETE
+// Endpoint
+Criar a pasta api_front no front-end e dentro dela apiFront.js
+Instalar o axios no front-end
+
+
+--------------------------------------------------------------------------------------------
+10 PASSO - AXIOS
+Middleware, para resolver o problema do front e back que estão em portas diferentes,
+Digitar no terminal do front_end
+npm i axios
+
+
+--------------------------------------------------------------------------------------------
+11 PASSO - CORS
+Middleware, para resolver o problema do front e back que estão em portas diferentes,
+cors: middleware que permite requisições entre front-end e back-end.
+Ir para pasta back-end
+Digitar no terminal
+npm i cors
+
+Deixar o arquivo server.js assim:
+
+import express from "express";
+import cors from "cors";
+
+const app = express();
+const PORT = 3000;
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", async (req, res) => {
+  res.send("Por enquanto só estou com construindo endpoint '/login'");
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+
+--------------------------------------------------------------------------------------------
+12 PASSO - CRIAR O BANCO DE DADOS NO pgadmin
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- CRIAÇÃO DA TABELA LOGIN
+CREATE TABLE IF NOT EXISTS public.login (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  senha TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
+  nome TEXT NOT NULL UNIQUE
+);
+
+
+-- CRIAÇÃO DA TABELA TAREFAS
+CREATE TABLE IF NOT EXISTS public.tarefas (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  usuario_id UUID NOT NULL,
+  nome TEXT NOT NULL,
+  tarefa TEXT NOT NULL,
+  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES public.login(id) ON DELETE CASCADE
+);
+
+SELECT * FROM login
+SELECT * FROM tarefas
+
+INSERT INTO login (senha, nome, email)
+VALUES
+  ('0000', 'Daniel', 'dvs.veiga78@gmail.com'),
+  ('0001', 'Tais', 'tr.abreuveiga@gmail.com');
+
+
+--------------------------------------------------------------------------------------------
+13 PASSO - CRIAR O ARQUIVO .env PARA DEIXAR OS DADOS DE CONEXÃO SEGUROS
+São as variáveis que não serão compartilhadas com terceiros
+Criar arquivo .env no back-end
+
+Colocar no arquivo .env:
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=Limao_10
+DB_DATABASE=TaskList
+
+Digitar no terminal, na pasta back-end:
+npm install dotenv
+npm install dotenv = serve para ter acesso as variáveis de ambiente
+
+Colocar na server.js
+import "dotenv/config"
+import pg from "pg";
+
+Colocar no arquivo server.js
+const pool = new pg.Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+console.log((await pool.query("SELECT * FROM login")).rows);
+
+Instalar o PG ADMIN
+Digitar no terminal, na pasta back-end:
+npm i pg
+
+Rodar o node ./server.js e conferir se deu certo
+
+
+--------------------------------------------------------------------------------------------
+14 PASSO - CRIAR AS ESTRUTURAS DO CRUD
+Criar a pasta crud em back-end
+POST, GET, PUT, DELETE
+CRUD - CREATE, READ, UPDATE e DELETE
+Dentro da pasta crud, criar a pasta dbOnLine, colocar as estruturas de acesso ao banco de dados
+Essa pasta vai guardar os códigos que fazem comunicação com banco de dados e terá tudo que for comunicação com banco de dados
+
+Criar o arquivo de acesso ao banco de dados
+Criar o arquivo db.js na pasta dbOnLine
+
+Recortar do server.js e colar no db.js
+
+import pg from "pg";
+
+const pool = new pg.Pool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
+
+Colocar a exportação
+export default pool
+
+
+--------------------------------------------------------------------------------------------
+15 PASSO - CRIAR A CLASSE GERAL DAS ROTAS
+Dentro da pasta dbOnLine, criar um arquivo DbClass.js
+As iniciais em maiúsculo, porque iremos criar uma classe nesse arquivo
+Esse arquivo terá as ações comuns para o banco de dados
+
+Copiar o modelo de outros projetos
+
+O ARQUIVO server.js ESTÁ ASSIM:
+// API significa Application Programing interface
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import DbClass from "../crud/dbOnline/DbClass.js"; // 👈 importação correta
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+// CRIAR A ROTA GET QUE IRÁ COMUNICAR O DB COM SERVIDOR
+app.get("/", async (req, res) => {
+  const result = await new DbClass().getAll("tarefas");
+  res.status(200).send(result);
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+
+--------------------------------------------------------------------------------------------
+16 PASSO - CRIAR O ARQUIVO DE ROTAS
+Criar a pasta rotas e arquivo rotaLogin.js
+Vamos criar a rota das tarefas:
+
+import { Router } from "express";
+import DbClassLogin from "../dbOnLine/DbClassLogin.js";
+
+const rotas = Router();
+
+// ROTA PARA TUDO
+rotas.get("/", async (req, res) => {
+  try {
+    const result = await new DbClassLogin().getAll();
+    res.status(200).send(result);
+  } catch (erro) {
+    console.error("Erro na rota GET /login:", erro.message);
+    res.status(500).send({ erro: "Erro ao buscar login" });
+  }
+});
+
+export default rotas;
+
+
+O arquivo server.js, FICA ASSIM:
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import rotaLogin from "../crud/rotas/rotaLogin.js";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+const PORT = 3000;
+
+app.use("/api/login", rotaLogin);
+
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+ALTERAR ENDPOINT
+É necessário para não confundir com aquivos.js que terão o mesmo nome do endpoint
+Ex:
+app.use("/api/carrinho", rotaLogin);
+
+
+--------------------------------------------------------------------------------------------
+17 PASSO - COMO FICOU App.jsx e Login.jsx
+
+App.jsx
+import React, { useState } from "react";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Login setUser={setUser} /> {/* passa a função para Login */}
+      <Home />
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+Login.jsx
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+--------------------------------------------------------------------------------------------
+17 PASSO - INSTALAR PACOTE PARA RE-RENDERIZAR PÁGINAS
+Fazer isso depois de criar as páginas
+Abrir na pasta global
+Digitar no terminal:
+npm i react-router-dom
+
+Importar dentro do arquivo App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+O que é BrowserRouter: vai gerenciar as rotas. Browser = navegador, Router = roteador
+Agora as páginas são componenetes que serão re-renderizados num mesmo documento, 
+ou se é certo dizer, na mesma página
+
+Como vai ficar os arquivos:
+
+Main.jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom"; // 👈 importado aqui
+import "./style.css";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <BrowserRouter>
+      {" "}
+      {/* 👈 envolve o App com o roteador */}
+      <App />
+    </BrowserRouter>
+  </StrictMode>
+);
+
+
+App.jsx
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />}>
+          {" "}
+          {/* passa a função para Login */}
+        </Route>
+        <Route path="/home" element={<Home />}></Route>
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+Login.jsx
+O useNavigate é um hook do react-router-dom usado para navegar entre páginas
+import { useNavigate } from "react-router-dom";
+
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../components/Toast.jsx";
+import { buscarLogins } from "../../../api_front/login.js";
+import { useNavigate } from "react-router-dom";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+      navigate("/home"); // redireciona para /home
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+-------------------------------------------------------------------------------------------
+18 PASSO - CRIAR PROTEÇÃO DE ROTAS
+Usuário só irá navegar se estiver logado
+import { Navigate } from "react-router-dom";
+<Route
+  path="/home"
+  element={user ? <Home user={user} /> : <Navigate to="/" />}
+/>
+
+App.jsx
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null); // cria o estado do usuário
+  console.log("Usuário logado", user);
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />}>
+          {" "}
+          {/* passa a função para Login */}
+        </Route>
+        <Route
+          path="/home"
+          element={user ? <Home user={user} /> : <Navigate to="/" />}
+        ></Route>
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------------------------------------------------
+19 PASSO - MANTER NA PÁGINA MESMO APÓS O CARREGAMENTO
+Salvar o login no localStorage para manter a sessão mesmo após recarregar a página
+
+1. No momento em que o login for bem-sucedido, adicione:
+localStorage.setItem("user", JSON.stringify(userFind));
+
+Login.jsx
+import React, { useState, useEffect } from "react";
+import { notificar } from "../../components/Toast";
+import { buscarLogins } from "../../../api_front/login.js";
+import { useNavigate } from "react-router-dom";
+
+const Login = ({ setUser }) => {
+  // recebe a prop (função) do App
+  const [senha, setSenha] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    if (!senha) {
+      return notificar("erro", "Informe a senha");
+    }
+
+    const usuario = await buscarLogins();
+    const userFind = usuario.find((f) => f.senha === senha);
+
+    if (userFind) {
+      notificar("sucesso", `Bem-vindo, ${userFind.nome}!`);
+      setUser(userFind); // envia para app
+      localStorage.setItem("user", JSON.stringify(userFind)); // 👈 salva
+      navigate("/home"); // redireciona para /home
+    } else {
+      notificar("erro", "Senha inválida");
+    }
+
+    setSenha("");
+  };
+
+  return (
+    <div className="login__container">
+      <h1>Login</h1>
+      <label className="label__login" htmlFor="input__login">
+        Digite sua senha:
+      </label>
+      <input
+        type="password"
+        name="input__login"
+        placeholder="senha"
+        value={senha}
+        onChange={(e) => {
+          setSenha(e.target.value);
+        }}
+      />
+      <button className="btn__enter" onClick={handleLogin}>
+        <h3>Entrar</h3>
+      </button>
+    </div>
+  );
+};
+
+export default Login;
+
+
+2. Carregar o usuário salvo ao iniciar o app (App.jsx)
+Logo ao iniciar o app, você verifica se há um usuário salvo:
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
+const [loading, setLoading] = useState(true); // 👈 novo estado
+setLoading(false); // 👈 só após checar o localStorage
+if (loading) {
+    return <div>Carregando...</div>; // ou spinner, etc
+  }
+
+
+App.jsx
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./Pages/Login/Login";
+import Home from "./Pages/Home/Home";
+import Toast from "./components/Toast";
+
+function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // 👈 novo estado
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    setLoading(false); // 👈 só após checar o localStorage
+  }, []);
+
+  if (loading) {
+    return <div>Carregando...</div>; // ou spinner, etc
+  }
+
+  return (
+    <div className="app_components">
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />} />
+        <Route
+          path="/home"
+          element={user ? <Home user={user} /> : <Navigate to="/" />}
+        />
+      </Routes>
+      <Toast />
+    </div>
+  );
+}
+
+export default App;
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - LOGOUT
+Removendo o usuário
+import { useNavigate } from "react-router-dom";
+
+const Home = ({ user }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  return (
+    <div>
+      <h1>Bem-vindo, {user?.nome}</h1>
+      <button onClick={handleLogout}>Sair</button>
+    </div>
+  );
+};
+
+export default Home;
+
+Como está o Home.jsx!!!!!!!!!!!!!!!!
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { notificar } from "../../components/Toast";
+
+const Home = ({ user }) => {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    if (!user) {
+      notificar("erro", "Usuário não está logado");
+      navigate("/"); // redireciona automaticamente
+    } else {
+      setUserName(user.nome);
+    }
+  }, [user, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  return (
+    <div className="home__container">
+      <h1>Bem-vindo{userName && `, ${userName}`}!</h1>
+      <p>Você está autenticado no sistema.</p>
+      <button className="btn__logout" onClick={handleLogout}>
+        Sair
+      </button>
+    </div>
+  );
+};
+
+export default Home;
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+-------------------------------------------------------------------------------------------
+20 PASSO - 
+
+
+
+
+--------------------------------------------------------------------------------------------
+18 PASSO - CRIAR A CLASSE ESPECÍFICA DAS ROTAS
+
+ARQIOVO DbClassTarefas.js
+import DbClass from "./DbClass.js";
+
+class DbClassTarefas extends DbClass {
+  // BUSCAR TUDO
+  async getAll() {
+    try {
+      const results = await super.getAll("tarefas", [
+        "id",
+        "email",
+        "nome",
+        "tarefa",
+      ]);
+      return results;
+    } catch (error) {
+      console.error("Erro ao buscar tarefas:", error.message);
+      return [];
+    }
+  }
+}
+
+export default DbClassTarefas;
+
+
+--------------------------------------------------------------------------------------------
+19 PASSO - CRIAR A ROTA NO FRONT-END
+
+import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+
+// Buscar todas as tarefas
+export async function getAllTask() {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/tarefas`);
+    return data;
+  } catch (error) {
+    const msg =
+      error.response?.data?.erro || // `erro` é o que sua API devolve
+      error.response?.data?.message ||
+      error.message ||
+      "Erro desconhecido";
+    console.error("Erro ao buscar tarefas:", msg);
+    return [];
+  }
+}
+
+
+--------------------------------------------------------------------------------------------
+20 PASSO - CÓDIGO PARA CRIAR A PASTA DIST e ARMAZENAR INDEX.HTML
+Ir para pasta back-end, digite no terminal
+npm i path
+
+Na pasta back-end criar o arquivo test.js
+import path, { dirname } from "path";
+
+const __dirname = path.resolve();
+console.log(__dirname);
+
+E rodar no back-end
+node ./test.js
+
+Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Projetos\TaskList\back_end
+
+Depois colocar o arquivo test.js dentro de api e rodar: node .\api\test.js
+Vai dá a pasta que está executando: C:\Users\Daniel\Documents\Projetos\TaskList\back_end
+
+Colar na pasta server.js
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// console.log("__dirname", __dirname);
+
+app.use(express.static(path.join(__dirname, "../../front_end/dist")));
+
+app.get("*any", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../front_end/dist/index.html"));
+});
+
+server.js
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import rotaLogin from "../crud/rotas/rotaLogin.js";
+import rotaTask from "../crud/rotas/rotaTask.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// console.log("__dirname", __dirname);
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+const PORT = 3000;
+
+// Rotas
+app.use("/api/login", rotaLogin);
+app.use("/api/tarefas", rotaTask);
+
+app.use(express.static(path.join(__dirname, "../../front_end/dist")));
+app.get("*any", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../front_end/dist/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor está escutando na porta ${PORT}`);
+});
+
+
+--------------------------------------------------------------------------------------------
+21 PASSO - NPM RUN BUIL e START
+
+Na pasta global
+Digite no terminal
+npm init -y
+
+Alterar o script do package.json global:
+
+"name": "deploy", não fiz isso
+Passar o name para deploy, isso é extremamente importante!!!!!!!Não fiz isso!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ "scripts": {
+    "build": "npm install --prefix back-end && npm install --prefix front-end && npm run build --prefix front_end",
+    "start": "npm run start --prefix back_end"
+  },
+
+Essas alterações é para instalar o node_modules no front e back e rodar o vite quando rodar o projeto
+
+ALTERAR O NODEMON
+****Retirar o nodemon, não é aceito na produção
+
+Alterar o script do package.json do back-end:
+  "scripts": {
+    "start": "node ./api_back/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+
+Digite no terminal, rodar na pasta global:
+npm run build
+npm run start
+
+Rodar git add . , precisa estar na pasta mãe
+Rodar git commit -m "" . , precisa estar na pasta mãe
+Rodar git push . , precisa estar na pasta mãe
+
+
+--------------------------------------------------------------------------------------------
+22 PASSO - DEPLOY DO PROJETO NO RENDER
+Vá em + Add new
+Clicar em Web Service
+Clicar no projeto, vai aparecer as opções
+
+Em Build Command: cd front_end && npm install && npm run build
+Em Start Command: cd back_end && npm install && npm start
+Em Build Command: npm run build
+Em Start Command: npm run start
+Selecionar free
+Clicar em deploy web service
+
+Depois no VS Code alterar BASE_URL
+// const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const BASE_URL = "https://listatarefa-4pc8.onrender.com/api";
+
+Usar o DBeaver para checar conexão
+
+Digite no terminal, rodar na pasta global:
+npm run build
+npm run start
+
+Rodar git add . , precisa estar na pasta mãe
+Rodar git commit -m "" . , precisa estar na pasta mãe
+Rodar git push . , precisa estar na pasta mãe
+
+--------------------------------------------------------------------------------------------
+25 PASSO - DEPLOY DO BANDO DE DADOS NO RENDER
+Cadastrar o banco de dados no Render
+Vá em dashboard
+Em + Add New, clique e postgres
+Coloque o nome do banco de dados
+Clicar em Free
+Deixar os outros campos como estão
+Clicar em create database
+Vá em dashboard
+Clicar no banco e dados
+Clicar em connect
+Copiar o caminho
+postgresql://viveirolimeira_user:HH73wLSYoxZAbyROuUhSF85Cy80ZdMQ8@dpg-d10r7qq4d50c73b3o320-a/viveirolimeira
+Vá em dashboard
+Clique no projeto
+Crie uma variável de ambiente
+Key: DATABASE_URL                        Valor: postgresql://tasklist_db_6p09_user:OBLpH1Ogp9g9ESwthMF4gHjVQgLMI0Fm@dpg-d1n94tjuibrs73e9jsc0-a/tasklist_db_6p09
+Clique em salvar
+
+
+--------------------------------------------------------------------------------------------
+
+**/.env
+--------------------------------------------------------------------------------------------
+20 PASSO - COMPONENTE DE BOAS VINDAS, NÃO COLOQUEI
+
+Digite no terminal, rodar no front_end:
+npm install framer-motion
+
+import { motion, AnimatePresence } from "framer-motion";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+20 PASSO - NOTIFICAÇÕES PARA Ok ou CANCELAR
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+
+const ModalConfirmacao = ({
+  aberto,
+  onConfirmar,
+  onCancelar,
+  children,
+  carregando = false,
+  titulo = "Confirmar ação", // valor padrão
+}) => {
+  return (
+    <AnimatePresence>
+      {aberto && (
+        <motion.div
+          className="modal__fundo"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <motion.div
+            className="modal__caixa"
+            initial={{ y: "-40px", opacity: 0, scale: 0.95 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: "-40px", opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <h2 style={{ color: "#333" }}>
+              <FontAwesomeIcon
+                icon={faExclamationTriangle}
+                style={{ color: "#e74c3c", marginRight: "8px" }}
+              />
+              {titulo}
+            </h2>
+
+            <div className="modal__mensagem">{children}</div>
+            <div className="modal__botoes">
+              <button
+                className="botao confirmar"
+                onClick={onConfirmar}
+                disabled={carregando}
+              >
+                {carregando ? "Salvando..." : "Confirmar"}
+              </button>
+              <button
+                className="botao cancelar"
+                onClick={onCancelar}
+                disabled={carregando}
+              >
+                Cancelar
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default ModalConfirmacao;
+
+ARQUIVO TaskList
+import React, { useState } from "react";
+import { deleteByIdTask, updateTask } from "../../../apiFrontEnd/tarefas";
+import { notificar } from "../../components/Toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faPencil,
+  faSave,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+
+import ModalConfirmacao from "../../components/Confirmacao";
+
+const TaskList = ({ tasklist, setTasklist, carregarTarefas }) => {
+  const [modalAberto, setModalAberto] = useState(false);
+  const [tarefaSelecionada, setTarefaSelecionada] = useState(null);
+  const [carregando, setCarregando] = useState(false);
+  const [modoEdicaoId, setModoEdicaoId] = useState(null);
+  const [textoEditado, setTextoEditado] = useState("");
+
+  const [modalConfirmarEdicao, setModalConfirmarEdicao] = useState(false);
+  const [tarefaParaEditar, setTarefaParaEditar] = useState(null);
+
+  const pedirConfirmacao = (task) => {
+    setTarefaSelecionada(task);
+    setModalAberto(true);
+  };
+
+  const confirmarRemocao = async () => {
+    if (!tarefaSelecionada) return;
+
+    setCarregando(true);
+    const sucesso = await deleteByIdTask(tarefaSelecionada);
+    setCarregando(false);
+    setModalAberto(false);
+
+    if (sucesso) {
+      await carregarTarefas();
+      notificar("sucesso", "Tarefa excluída com sucesso!");
+    } else {
+      notificar("erro", "Tarefa não encontrada");
+    }
+
+    setTarefaSelecionada(null);
+  };
+
+  const iniciarEdicao = (task) => {
+    setModoEdicaoId(task.id);
+    setTextoEditado(task.tarefa);
+  };
+
+  const cancelarEdicao = () => {
+    setModoEdicaoId(null);
+    setTextoEditado("");
+  };
+
+  return (
+    <div className="task__list">
+      {tasklist.map((task) => (
+        <div className="task__list-item" key={`task-${task.id}`}>
+          {modoEdicaoId === task.id ? (
+            <>
+              <input
+                className="input__edit"
+                value={textoEditado}
+                onChange={(e) => setTextoEditado(e.target.value)}
+              />
+              <div className="button__task">
+                <button
+                  className="button__save"
+                  onClick={() => {
+                    setTarefaParaEditar({
+                      ...task,
+                      tarefa: textoEditado.trim(),
+                    });
+                    setModalConfirmarEdicao(true);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faSave} />
+                </button>
+
+                <button className="button__cancel" onClick={cancelarEdicao}>
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>{task.tarefa}</p>
+
+              <div className="button__task">
+                <button
+                  className="button__edit"
+                  onClick={() => iniciarEdicao(task)}
+                >
+                  <FontAwesomeIcon icon={faPencil} />
+                </button>
+                <button
+                  className="button__remove"
+                  onClick={() => pedirConfirmacao(task)}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+
+      {/* Modal de exclusão */}
+      <ModalConfirmacao
+        aberto={modalAberto}
+        onConfirmar={confirmarRemocao}
+        onCancelar={() => setModalAberto(false)}
+        carregando={carregando}
+        titulo="Confirmar exclusão"
+      >
+        <span>
+          Tem certeza que deseja excluir{" "}
+          <strong>{tarefaSelecionada?.tarefa}</strong> de{" "}
+          <strong>{tarefaSelecionada?.nome}</strong>?
+        </span>
+      </ModalConfirmacao>
+
+      {/* Modal de edição com confirmação */}
+      <ModalConfirmacao
+        aberto={modalConfirmarEdicao}
+        // onConfirmar={async () => {
+        //   if (!tarefaParaEditar || !tarefaParaEditar.tarefa) return;
+
+        //   try {
+        //     const sucesso = await updateTask(tarefaParaEditar);
+        //     if (sucesso) {
+        //       await carregarTarefas();
+        //       notificar("sucesso", "Tarefa atualizada com sucesso!");
+        //     }
+        //   } catch (error) {
+        //     notificar("erro", "Erro ao atualizar tarefa.");
+        //   }
+
+        //   setModoEdicaoId(null);
+        //   setTextoEditado("");
+        //   setTarefaParaEditar(null);
+        //   setModalConfirmarEdicao(false);
+        // }}
+
+        onConfirmar={async () => {
+          if (!tarefaParaEditar || !tarefaParaEditar.tarefa) return;
+
+          setCarregando(true);
+
+          try {
+            const sucesso = await updateTask(tarefaParaEditar);
+            if (sucesso) {
+              await carregarTarefas();
+              notificar("sucesso", "Tarefa atualizada com sucesso!");
+            }
+          } catch (error) {
+            notificar("erro", "Erro ao atualizar tarefa.");
+          }
+
+          setCarregando(false);
+          setModoEdicaoId(null);
+          setTextoEditado("");
+          setTarefaParaEditar(null);
+          setModalConfirmarEdicao(false);
+        }}
+        onCancelar={() => setModalConfirmarEdicao(false)}
+        titulo="Confirmar edição"
+        carregando={carregando}
+      >
+        <span>
+          Tem certeza que deseja salvar a tarefa como{" "}
+          <strong>{tarefaParaEditar?.tarefa}</strong>?
+        </span>
+      </ModalConfirmacao>
+    </div>
+  );
+};
+
+export default TaskList;
+
+
+--------------------------------------------------------------------------------------------
+
+
+✅ Script SQL completo
+sql
+Copiar
+Editar
+-- 🔧 Ativa a extensão de geração de UUID segura
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- 🧱 Cria a tabela LOGIN
+CREATE TABLE IF NOT EXISTS public.login (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  senha TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  nome TEXT NOT NULL UNIQUE
+);
+
+-- 🧱 Cria a tabela TAREFAS com chave estrangeira para LOGIN
+CREATE TABLE IF NOT EXISTS public.tarefas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  usuario_id UUID NOT NULL,
+  tarefa TEXT NOT NULL,
+  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id)
+    REFERENCES public.login(id)
+    ON DELETE CASCADE
+);
+
+-- 👤 Insere usuários fixos
+INSERT INTO login (senha, nome, email) VALUES
+('0000', 'Daniel', 'dvs.veiga78@gmail.com'),
+('0001', 'Tais', 'tr.abreuveiga@gmail.com');
+
+-- 📝 Insere tarefas associadas a cada usuário (substitua os UUIDs conforme real)
+-- Primeiro, recupere os IDs reais:
+-- SELECT id, nome FROM login;
+
+-- Exemplo com IDs reais (substitua pelos verdadeiros)
+INSERT INTO tarefas (usuario_id, tarefa) VALUES
+('ff89f669-39a2-405f-aed8-49bc4ae951f2', 'Regar todas as plantas da estufa A'),
+('ff89f669-39a2-405f-aed8-49bc4ae951f2', 'Correr'),
+('4195dcbb-7741-4cb2-81a0-0f0ddc775b78', 'Verificar nível de adubo nos viveiros');
+📌 Como usar
+Abra o DBeaver.
+
+Clique com o botão direito no banco tasklist_db_6p09 > Editor SQL.
+
+Cole todo o código acima.
+
+Clique no botão Executar (▶️).
+
+Verifique em “Tabelas” se login e tarefas foram criadas com sucesso.
+
+Teste no seu projeto com:
+
+bash
+Copiar
+Editar
+node .\back_end\inserirUsuarios.js
+Se quiser, posso converter isso num arquivo .sql pronto para baixar ou ajudar a montar um criarTabelas.js para automatizar pelo código. Deseja isso também?
+
+
+
+cd front_end
+Remove-Item -Recurse -Force dist
+npm run build
+
+git add -A
+git commit -m "🔥 Forçando commit de todos os arquivos atualizados do build"
+git push
+
+Rodar dentro do fron_end para garantir a leitura do .env dentro deo fron_end
+npm install --save-dev cross-env
+npx cross-env vite build
+
+Atualize o package.json do front_end
+"build": "cross-env vite build",
+
+
+Solução
+Substitua essa linha no index.html:
+<script type="module" src="/src/main.jsx"></script>
+
+Por:
+<script type="module" src="/assets/index-*.js"></script>
+
+depois da alteração do index.html
+foi preciso criar a pasta static.json no front_end
+{
+  "routes": {
+    "/**": "index.html"
+  }
+}
+
+Isso instrui o Render a redirecionar todas as rotas para index.html, evitando o erro de carregamento do JS.
+
+Colocar no Render
+VITE_API_URL=https://tasklist-g5wi.onrender.com
+
+
+
+
+Perfeito! Com base no seu package.json dentro da pasta front_end, o script build está correto (vite build), mas você ainda não tem o Vite instalado nas dependências. Isso é exatamente o que está causando o erro no Render.
+
+✅ O que falta?
+Você precisa instalar o Vite como dependência de desenvolvimento:
+
+cd front_end
+npm install -D vite @vitejs/plugin-react
+
+trocar package.json
+ "scripts": {
+    "build": "npm install --prefix back_end && npm install --prefix front_end && npm run build --prefix front_end",
+    "start": "npm run start --prefix back_end"
+  },
+
+para isso
+
+
+cd front_end && npm install && npm run build
+
+
+front_end/dist
+
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
