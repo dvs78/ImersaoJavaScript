@@ -116,3 +116,84 @@ function App() {
 }
 
 export default App;
+
+
+-----------------------------------------------------------------------------------------
+5. CRIANDO AS ROTAS DO PROJETO
+Instalar o gerenciador de rotas
+Digitar no terminal, pasta front-end:
+npm i react-router-dom
+
+Em App.jsx, importar BrowserRouter, Routes e Route para gerenciar as rotas:
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+Colocar os componentes dentro de BrowserRouter, fica assim:
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Home } from "./pages/Home";
+import Product from "./pages/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Home />
+      <Product />
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+Para rotas específicas, colocar Routes e Route
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import { Home } from "./pages/Home";
+import Product from "./pages/Product";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Product />} />
+      </Routes>
+
+      <Footer />
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+-----------------------------------------------------------------------------------------
+6. CRIAÇÃO DO ESQUELETO DA API COM EXPRESS
+Preparar o projeto para receber requisição e resposta
+Então vamos criar o back-end e vamos precisar do package.json
+Digitar no terminal, na pasta back-end:
+npm init -y
+Esse -y é para concordar com tudo que será proposto para configurar, se quiser configurar personalizado, basta digitar = npm init, mas nessa altura do projeto não tem necessidade
+
+No package.json do back-end, colocar depois de  "description": "", isso aqui  "type": "module",
+
+Vamos instalar o express
+Digitar no terminal, na pasta back-end:
+npm i express
+
+Criar o arquivo index.js no back-end
+Só para lembrar que no package.json vai criar assim "main": "index.js", será o arquivo server.js. Por isso vamos criar o arquivo index.js se quiser criar server.js, alterar no package.json assim "main": "server.js"
+
+Vamos importyar o express em index.js
+import express from "express";
+
+Colocar todas as funções do express na variável app
+const app = express();
+
+Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen()
