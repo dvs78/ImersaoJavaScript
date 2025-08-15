@@ -1,24 +1,28 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Produto from "../components/Produto";
 
 export const Home = () => {
-  const requisicaoAxios = async () => {
-    // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
-    // console.log(respostaRequisicao.data);
-    const { data } = await axios.get("http://localhost:3000/produto");
-    console.log(data);
-  };
-  requisicaoAxios();
+  // Variável de estado
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      const { data } = await axios.get("http://localhost:3000/produto");
+      setProdutos(data);
+    };
+    requisicaoAxios();
+  }, []);
+  if (produtos.length === 0) return <></>;
   return (
     <section className="secao-produto">
       <div className="container">
         <h1>Todos os produtos</h1>
 
         <div className="produtos">
-          <Produto />
-          <Produto />
-          <Produto />
-          <Produto />
+          {produtos.map((produto) => (
+            <Produto {...produto} key={produto.id} />
+          ))}
         </div>
       </div>
     </section>

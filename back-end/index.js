@@ -14,6 +14,15 @@ app.get("/produto", async (req, res) => {
   res.json(produtos);
 });
 
+// Buscando 1 produto
+app.get("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produto = await prisma.produto.findUnique({
+    where: { id: Number(id) },
+  });
+  res.json(produto);
+});
+
 // Criando os produtos
 app.post("/produto", async (req, res) => {
   const {
@@ -45,6 +54,14 @@ app.post("/produto", async (req, res) => {
   res.json(novoProduto);
 });
 
+// Deletando produto
+app.delete("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produtoDeletar = await prisma.produto.delete({
+    where: { id: Number(id) },
+  });
+  res.json(produtoDeletar);
+});
 // Parâmetros da requisição
 // app.post("/produto/:id", (req, res) => {
 //   const { body } = req;

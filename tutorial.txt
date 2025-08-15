@@ -531,3 +531,97 @@ export const Home = () => {
     </section>
   );
 };
+
+
+-----------------------------------------------------------------------------------------
+17. HOOK
+Atualiza a renderização da variável alterada
+
+export const Home = () => {
+  // Variável normal
+  let variavel = "teste";
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+      // console.log(respostaRequisicao.data);
+      const { data } = await axios.get("http://localhost:3000/produto");
+      console.log(data);
+      variavel = "teste2";
+    };
+    requisicaoAxios();
+  }, []);
+
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos {variavel}</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+Variável normal não altera a renderização quando está dentro de uma função, quando ela é alterada, somente variável de estado altera a renderização
+
+Forma correta
+export const Home = () => {
+  // Variável de estado
+  const [variavelEstado, setVariavelEstado] = useState("teste");
+
+  useEffect(() => {
+    const requisicaoAxios = async () => {
+      // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+      // console.log(respostaRequisicao.data);
+      const { data } = await axios.get("http://localhost:3000/produto");
+      console.log(data);
+      setVariavelEstado("teste2");
+    };
+    requisicaoAxios();
+  }, []);
+
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos {variavelEstado}</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+-----------------------------------------------------------------------------------------
+18. CRIANDO REQUISIÇÃO DELETE com ID =  ENDPOINT "/produto/:id"
+// Deletando produto
+app.delete("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produtoDeletar = await prisma.produto.delete({
+    where: { id: Number(id) },
+  });
+  res.json(produtoDeletar);
+});
+
+
+-----------------------------------------------------------------------------------------
+19. CRIANDO REQUISIÇÃO GET com ID =  ENDPOINT "/produto/:id"
+// Buscando 1 produto
+app.get("/produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const produto = await prisma.produto.findUnique({
+    where: { id: Number(id) },
+  });
+  res.json(produto);
+});
