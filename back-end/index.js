@@ -3,6 +3,9 @@ import express from "express";
 // Colocar todas as funções do express na variável app
 const app = express();
 
+// Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
+app.use(express.json());
+
 // Criando requisição get = endpoint com barra, só tem resposta
 app.get("/", (req, res) => {
   res.send("Olá, Galo!");
@@ -10,9 +13,19 @@ app.get("/", (req, res) => {
 
 // Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
 app.post("/", (req, res) => {
-  const body = req.body;
-  console.log(body.nome);
-  res.send("Informação nova criada com sucesso!");
+  // Desestruturação, pega chave dentro do objeto
+  // objeto = req
+  // chave = body
+  // const body = req.body;
+  const { body } = req;
+
+  // objeto = body
+  // chave = nome e imersao
+  const { nome, imersao } = body;
+
+  // console.log(body.nome);
+  // res.send("Informação nova criada com sucesso!");
+  res.json({ nome, imersao });
 });
 
 // Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
