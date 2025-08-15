@@ -28,6 +28,18 @@ app.post("/", (req, res) => {
   res.json({ nome, imersao });
 });
 
+// Parâmetros da requisição
+app.post("/produto/:id", (req, res) => {
+  const { body } = req;
+  const { nome, imersao } = body;
+
+  // const id = req.params.id;
+  const { id } = req.params;
+  console.log(id);
+
+  res.json({ nome, imersao });
+});
+
 // Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
 app.listen(3000, () =>
   console.log("Meu servidor está rodando na porta http://localhost:3000")

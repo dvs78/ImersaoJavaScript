@@ -339,4 +339,86 @@ app.listen(3000, () =>
 );
 
 
+-----------------------------------------------------------------------------------------
+10. CRIANDO REQUISIÇÃO POST com ID =  ENDPOINT "/produto/:id"
+//req.params
 
+// Parâmetros da requisição
+app.post("/produto/:id", (req, res) => {
+  const { body } = req;
+  const { nome, imersao } = body;
+
+  // const id = req.params.id;
+  const { id } = req.params;
+  console.log(id);
+
+  res.json({ nome, imersao });
+});
+
+
+-----------------------------------------------------------------------------------------
+11. CONFIGURANDO O PRISMA E O SQLite
+O SQLite é um banco de dados local e para projetos pequenos
+Para banco de dados na nuvem e projetos maiores, usar o POSTGRES
+
+Isntalar o PRISMA, vai fazer o meio de campo entre a API e o do banco de dados. Isso é para não precisar de ficar usando a linguagem SQL pode usar só javascript
+Digite no terminal do back-end:
+npm i prisma @prisma/client
+
+vai colocar no package.json do back-end
+"dependencies": {
+    "@prisma/client": "^6.14.0",
+    "express": "^5.1.0",
+    "prisma": "^6.14.0"
+  }
+
+Para configurar o prisma para trabalhar com SQLite
+Digite no terminal do back-end
+npx prisma init --datasource-provider sqlite
+
+Pode usar a pasta .env criada pelo prisma para acessar a URL, mas o professor preferiu deletar e seguir outro caminho
+Deletar a pasta .env
+Em schema.prisma, alterar o código
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.sqlite"
+}
+
+
+-----------------------------------------------------------------------------------------
+12. MODELANDO O BANCO DE DADOS 
+Em schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./database.sqlite"
+}
+
+// Modelando o Banco de Dados
+model Produto{
+      id Int @id @default(autoincrement())
+      titulo String
+      preco Float
+      precoDesconto Float
+      precoParcelado Float
+      caracteristicas String
+      imagens String
+      estoque Int
+      freteGratis Boolean
+      full Boolean
+}
+
+
+-----------------------------------------------------------------------------------------
+13. CONFIRGURAR A MIGRAÇÃO DO BANCO DE DADOS 
+Digite no termainal do back-end
+npx prisma migrate dev
+
+Clicar em Enter
