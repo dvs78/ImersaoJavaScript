@@ -422,3 +422,112 @@ Digite no termainal do back-end
 npx prisma migrate dev
 
 Clicar em Enter
+
+Digite no termainal do back-end
+npx prisma generate
+
+
+-----------------------------------------------------------------------------------------
+14. BUSCANDO OS PRODUTOS NO BANCO DE DADOS - GET
+Levar o banco de dados para o index.js
+
+import { PrismaClient } from "@prisma/client";
+import express from "express";
+
+const app = express();
+const prisma = new PrismaClient();
+
+app.use(express.json());
+
+// Bucando os produtos
+app.get("/", async (req, res) => {
+  const produtos = await prisma.produto.findMany();
+  res.json(produtos);
+});
+
+
+-----------------------------------------------------------------------------------------
+15. CRIANDO OS PRODUTOS NO BANCO DE DADOS - POST
+Em características vai dá problema, porque está declarado como String e é uma lista
+Por isso vai precisar do JSON.stringify(caracteristicas) para transformar a lista em uma String
+Para voltar a ser uma lista, usar o Parse 
+Clique em F12 aqui http://localhost:3000/
+
+const caracteristicas = [
+    "Material da jarra: Acrílico",
+    "Capacidade de 2.6 L.",
+    "A sua potência é de 900 W.",
+    "Possui base antiderrapante.",
+    "Lâmina resistente de aço inoxidável.",
+    "Tampa dosadora incorporada.",
+    "Funciona com 4 velocidades.",
+    "Livre de BPA.",
+    "Inclui filtro.",
+    "Picador de gelo.",
+    "Quantidade de lâminas: 4."
+  ]
+
+caracteristicas
+(11) ['Material da jarra: Acrílico', 'Capacidade de 2.6 L.', 'A sua potência é de 900 W.', 'Possui base antiderrapante.', 'Lâmina resistente de aço inoxidável.', 'Tampa dosadora incorporada.', 'Funciona com 4 velocidades.', 'Livre de BPA.', 'Inclui filtro.', 'Picador de gelo.', 'Quantidade de lâminas: 4.']
+
+Transformar a lista em String
+const textoLista = JSON.stringify(caracteristicas)
+textoLista
+'["Material da jarra: Acrílico","Capacidade de 2.6 L.","A sua potência é de 900 W.","Possui base antiderrapante.","Lâmina resistente de aço inoxidável.","Tampa dosadora incorporada.","Funciona com 4 velocidades.","Livre de BPA.","Inclui filtro.","Picador de gelo.","Quantidade de lâminas: 4."]'
+
+Transformar a String em lista
+JSON.parse(textoLista)
+(11) ['Material da jarra: Acrílico', 'Capacidade de 2.6 L.', 'A sua potência é de 900 W.', 'Possui base antiderrapante.', 'Lâmina resistente de aço inoxidável.', 'Tampa dosadora incorporada.', 'Funciona com 4 velocidades.', 'Livre de BPA.', 'Inclui filtro.', 'Picador de gelo.', 'Quantidade de lâminas: 4.']
+
+
+-----------------------------------------------------------------------------------------
+16. REQUISIÇÃO PELO FRONT-END COM AXIOS e Middleware CORS
+Instalar o axios 
+Digite no terminal do front-end:
+npm i axios
+
+Importar o axios em Home.jsx
+import axios from "axios"
+
+Instalar o CORS para comunicar front-end com back-end
+Digite no terminal do back-end:
+npm i axios
+
+Colocar em index.js
+import { PrismaClient } from "@prisma/client";
+import express from "express";
+import cors from "cors";
+
+const app = express();
+const prisma = new PrismaClient();
+
+app.use(express.json());
+app.use(cors());
+
+Em Home.jsx antes do return deixar assim
+import axios from "axios";
+import Produto from "../components/Produto";
+
+export const Home = () => {
+  const requisicaoAxios = async () => {
+    // const respostaRequisicao = await axios.get("http://localhost:3000/produto");
+    // console.log(respostaRequisicao.data);
+    const { data } = await axios.get("http://localhost:3000/produto");
+    console.log(data);
+  };
+  requisicaoAxios();
+  return (
+    <section className="secao-produto">
+      <div className="container">
+        <h1>Todos os produtos</h1>
+
+        <div className="produtos">
+          <Produto />
+          <Produto />
+          <Produto />
+          <Produto />
+        </div>
+      </div>
+    </section>
+  );
+};

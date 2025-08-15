@@ -1,44 +1,61 @@
+import { PrismaClient } from "@prisma/client";
 import express from "express";
+import cors from "cors";
 
-// Colocar todas as funções do express na variável app
 const app = express();
+const prisma = new PrismaClient();
 
-// Middleware: toda requisição com res.json, transforma e json, ou seja,todo body que chegar transforma em json
 app.use(express.json());
+app.use(cors());
 
-// Criando requisição get = endpoint com barra, só tem resposta
-app.get("/", (req, res) => {
-  res.send("Olá, Galo!");
+// Bucando os produtos
+app.get("/produto", async (req, res) => {
+  const produtos = await prisma.produto.findMany();
+  res.json(produtos);
 });
 
-// Criando requisição get = endpoint com barra, tem requisição (body) e resposta (params)
-app.post("/", (req, res) => {
-  // Desestruturação, pega chave dentro do objeto
-  // objeto = req
-  // chave = body
-  // const body = req.body;
-  const { body } = req;
+// Criando os produtos
+app.post("/produto", async (req, res) => {
+  const {
+    titulo,
+    preco,
+    precoDesconto,
+    precoParcelado,
+    caracteristicas,
+    imagens,
+    estoque,
+    freteGratis,
+    full,
+  } = req.body;
 
-  // objeto = body
-  // chave = nome e imersao
-  const { nome, imersao } = body;
+  const novoProduto = await prisma.produto.create({
+    data: {
+      titulo,
+      preco,
+      precoDesconto,
+      precoParcelado,
+      caracteristicas: JSON.stringify(caracteristicas),
+      imagens: JSON.stringify(imagens),
+      estoque,
+      freteGratis,
+      full,
+    },
+  });
 
-  // console.log(body.nome);
-  // res.send("Informação nova criada com sucesso!");
-  res.json({ nome, imersao });
+  res.json(novoProduto);
 });
 
 // Parâmetros da requisição
-app.post("/produto/:id", (req, res) => {
-  const { body } = req;
-  const { nome, imersao } = body;
+// app.post("/produto/:id", (req, res) => {
+//   const { body } = req;
+//   const { nome, imersao } = body;
 
-  // const id = req.params.id;
-  const { id } = req.params;
-  console.log(id);
+//   // const id = req.params.id;
+//   const { id } = req.params;
+//   console.log(id);
 
-  res.json({ nome, imersao });
-});
+//   res.json({ nome, imersao });
+// });
 
 // Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
 app.listen(3000, () =>
