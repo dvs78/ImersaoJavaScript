@@ -196,4 +196,60 @@ Colocar todas as funções do express na variável app
 const app = express();
 
 Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
-app.listen()
+app.listen(3000, () => {
+  console.log("Meu servidor está rodando na porta https://localhost:3000");
+});
+
+O back-end roda na porta 3000
+O front-end roda na porta 5175
+O console.log no back-end roda pelo node no terminal
+O console.log no front-end roda pelo inspecionar, na tela
+
+
+-----------------------------------------------------------------------------------------
+7. CRIANDO REQUISIÇÃO GET =  ENDPOINT "/"
+
+No back-end chama endpoint, https://localhost:3000/
+O front-end chama rota, https://localhost:5173/
+
+GET - Pegar informações
+PUT/PATCH - Editar informações
+DELETE - Deletar informações
+POST - Criar informações
+
+Vamos passar as intruções antes de escutar (app.listen)
+
+Minha 1 resposta para requisição GET
+import express from "express";
+
+// Colocar todas as funções do express na variável app
+const app = express();
+
+// Criando requisição get = endpoint com barra
+app.get("/", (req, res) => {
+  res.send("Olá, mundo!");
+});
+
+// Colocar o app para rodar, ou seja, receber pedidos ou enviar respostas
+app.listen(3000, () =>
+  console.log("Meu servidor está rodando na porta http://localhost:3000")
+);
+
+Toda vez que mudar o arquivo, para não ter que matar o back-end e atualizar, passar a instrução node --watch ./index.js
+
+
+-----------------------------------------------------------------------------------------
+8. CRIANDO REQUISIÇÃO POST =  ENDPOINT "/"
+
+Toda requisição na web, é do tipo get, para testar a api com outras requisições, ex:
+app.post("/", (req, res) => {
+  res.send("Informação nova criada com sucesso!");
+});
+
+Utilizar o aplicativo reqbin
+Digitar no google:
+reqbin
+Escrecer o caminho http://localhost:3000/ e escolher a requisição
+
+
+
